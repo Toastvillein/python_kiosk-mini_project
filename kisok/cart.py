@@ -1,4 +1,4 @@
-from menu import cart_list,hamburgers,drinks,sides
+from menu import cart_list,all_menus,menu_categories
 
 def cart_list_choice():
     cart_prompt = """
@@ -65,31 +65,13 @@ def cart_payment_calculator():
         name = key.split('.')[1]
         processed_carts[name] = value
 
-    processed_hamburgers = {}
-    for key,value in hamburgers.items():
-        name = key.split('.')[1]
-        processed_hamburgers[name] = value
-
-    processed_drinks = {}
-    for key,value in drinks.items():
-        name = key.split('.')[1]
-        processed_drinks[name] = value
-
-    processed_sides = {}
-    for key,value in sides.items():
-        name = key.split('.')[1]
-        processed_sides[name] = value
+    processed_menus = {}
+    for key,value in all_menus.items():
+        name = key
+        processed_menus[name] = value
 
     for name in processed_carts:
-        if name in processed_hamburgers:
-            result += processed_carts[name] * processed_hamburgers[name]
-
-    for name in processed_carts:
-        if name in processed_drinks:
-            result += processed_carts[name] * processed_drinks[name]
-
-    for name in processed_carts:
-        if name in processed_sides:
-            result += processed_carts[name] * processed_sides[name]
+        if name in processed_menus:
+            result += processed_carts[name] * processed_menus[name]
 
     return result
