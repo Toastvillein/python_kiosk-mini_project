@@ -8,7 +8,7 @@ menu_categories = {
     "hamburgers": {'1.불고기버거': 5000, '2.치즈버거': 4500},
     "drinks": {'1.콜라': 2000, '2.사이다': 2000},
     "sides": {'1.감자튀김': 2500, '2.치즈스틱': 1500}
-}
+} # 딕셔너리 내에 딕셔너리를 넣어 여러개로 나뉘어 있던 딕셔너리를 하나로 통합
 
 invalid_input = "잘못된 입력입니다."
 cart_list = {}
@@ -33,7 +33,7 @@ def category_choice():
             continue
 
         if input_category == 1:
-            process_order("hamburgers")
+            process_order("hamburgers") # 중복되던 프로세스를 함수로 만들어 코드 최적화
         elif input_category == 2:
             process_order("drinks")
         elif input_category == 3:
@@ -54,6 +54,9 @@ def menu_list_matcher(category_name, item_number):
     return None  # 메뉴를 찾지 못한 경우
 
 def append_item(cart, item_name, quantity):
+    """
+    메뉴 이름과 수량을 cart_list에 저장하고 동시에 넘버링을 통해 cart.py에서의 수정 함수에 사용이 용이하게 끔 만듬
+    """
     existing_key = None # 키 초기화
     for key in cart: # cart_list를 돌면서 key의 넘버링을 떼고 비교해서 장바구니에 이미 같은 메뉴가 들어 있는지 확인
         cart_item_name = key.split('.')[1]
@@ -72,6 +75,7 @@ def append_item(cart, item_name, quantity):
 
         new_key = f"{next_num}.{item_name}"
         cart[new_key] = quantity
+        # 햄버거를 10개 시켰을 때, cart_list = {1.햄버거 : 10} 이런식으로 추가됨.
 
 
 def process_order(category_name):
@@ -94,7 +98,7 @@ def process_order(category_name):
             print("메뉴에 없는 번호입니다.")
             return
 
-    except (ValueError, TypeError):
+    except (ValueError, TypeError): # 잘못된 입력 시에 예외처리
         print(invalid_input)
         return
 

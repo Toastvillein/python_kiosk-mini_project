@@ -58,20 +58,10 @@ def cart_quantity_modifier(input_modifying,input_quantity):
     print(cart_list)
 
 def cart_payment_calculator():
-    result = 0
-    # cart_list 가공
-    processed_carts = {}
-    for key,value in cart_list.items():
-        name = key.split('.')[1]
-        processed_carts[name] = value
-
-    processed_menus = {}
-    for key,value in all_menus.items():
-        name = key
-        processed_menus[name] = value
-
-    for name in processed_carts:
-        if name in processed_menus:
-            result += processed_carts[name] * processed_menus[name]
-
-    return result
+    total_price = 0
+    for key, quantity in cart_list.items():
+        # key('1.불고기버거')에서 이름('불고기버거')만 추출
+        item_name = key.split('.')[1]
+        # all_menus에서 바로 가격을 찾아 수량을 곱함
+        total_price += all_menus[item_name] * quantity
+    return total_price
